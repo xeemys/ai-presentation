@@ -1,0 +1,35 @@
+<!--
+  БЛОК: metrics-table — заголовок + пилюля-примечание + таблица метрик.
+  Когда использовать: закрывающий слайд «что измерять» / «итог» / сводка
+  цифр в две колонки (название — значение).
+  Что менять: kicker/headline, текст .pill (можно убрать сам <span
+  class="pill">, если примечание не нужно), строки таблицы (первая tr —
+  заголовки th), bottom-row — последняя строка часто акцентная (class="accent")
+  как призыв к действию/следующий шаг.
+-->
+<section class="slide">
+  <div class="top-row"><div class="top-meta">Раздел презентации</div></div>
+  <div class="body-area">
+    <div style="display:flex; justify-content:space-between; align-items:flex-end; margin-bottom:26px;">
+      <div>
+        <div class="kicker">
+          <svg class="i" viewBox="0 0 24 24" fill="none"><rect x="4" y="13" width="3.5" height="7" rx="1" fill="currentColor"/><rect x="10.3" y="8" width="3.5" height="12" rx="1" fill="currentColor"/><rect x="16.6" y="4" width="3.5" height="16" rx="1" fill="currentColor"/></svg>
+          Категория
+        </div>
+        <h1 class="headline">Заголовок с <span class="accent">акцентом</span></h1>
+      </div>
+      <span class="pill">Короткое примечание справа от заголовка</span>
+    </div>
+    <table class="clean">
+      <tr><th>Метрика</th><th style="text-align:right;">Что считаем</th></tr>
+      <tr><td>Название метрики</td><td class="r">Как её считать</td></tr>
+      <tr><td>Название метрики</td><td class="r">Как её считать</td></tr>
+      <tr><td>Название метрики</td><td class="r">Как её считать</td></tr>
+      <tr><td>Название метрики</td><td class="r">Как её считать</td></tr>
+    </table>
+  </div>
+  <div class="bottom-row">
+    <span class="accent" style="font-weight:800;">Следующий шаг — самое конкретное и ближайшее действие</span>
+    <span class="slide-no"><b class="num">NN</b> / N</span>
+  </div>
+</section>

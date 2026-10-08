@@ -1,0 +1,33 @@
+<!--
+  БЛОК: evidence-single — один скриншот-доказательство + текст с находкой
+  и рекомендацией. Самый частый блок для «разбора» чего-либо по пунктам.
+  Когда использовать: один факт на слайд, нужен и вывод, и картинка-пруф.
+  Что менять: kicker/headline/lede, текст .callout («Рекомендация»),
+  картинку, bottom-row. Порядок можно зеркалить — просто поменяй местами
+  два div внутри .cols-2 (текст ↔ картинка), это уже используется в двух
+  соседних слайдах презентации для визуального ритма (не подряд одинаково).
+-->
+<section class="slide">
+  <div class="top-row"><div class="top-meta">Раздел презентации</div></div>
+  <div class="body-area">
+    <div class="cols cols-2" style="gap:70px; align-items:center;">
+      <div>
+        <div class="kicker">
+          <svg class="i" viewBox="0 0 24 24" fill="none"><rect x="4.5" y="3.5" width="15" height="17" rx="2" stroke="currentColor" stroke-width="1.6"/><path d="M8 8.5h8M8 12h8M8 15.5h5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+          Категория находки
+        </div>
+        <h1 class="headline">Заголовок с <span class="accent">акцентом</span></h1>
+        <p class="lede">Развёрнутое описание находки или тезиса в 1–2 строки.</p>
+        <div class="callout">
+          <div class="step-num">Рекомендация</div>
+          <div class="item-desc" style="max-width:100%;">Что стоит сделать дальше — конкретно и коротко.</div>
+        </div>
+      </div>
+      <div class="card"><img class="shot" src="assets/example.png" alt="" /></div>
+    </div>
+  </div>
+  <div class="bottom-row">
+    <span>Короткий вывод-подпись, который остаётся в памяти</span>
+    <span class="slide-no"><b class="num">NN</b> / N</span>
+  </div>
+</section>

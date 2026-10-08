@@ -1,0 +1,44 @@
+<!--
+  БЛОК: stat-split — крупная цифра + полоска «доля от целого» + список
+  пояснений рядом. Диаграмма, а не два числа рядом текстом.
+  Когда использовать: нужно показать ЧАСТЬ от целого (проценты, деньги,
+  доля бюджета/трафика/аудитории) так, чтобы масштаб считывался визуально.
+  Что менять: headline, .stat-big (само число), .stat-label (подпись под
+  числом), width у .split-fill (= доля в %), обе строки .split-legend-row,
+  и список «Что это значит» справа (1–4 пункта).
+-->
+<section class="slide">
+  <div class="top-row"><div class="top-meta">Раздел презентации</div></div>
+  <div class="body-area">
+    <div style="margin-bottom:36px; max-width:760px;">
+      <div class="kicker">
+        <svg class="i" viewBox="0 0 24 24" fill="none"><rect x="3" y="12" width="4" height="8" rx="1" fill="currentColor"/><rect x="10" y="7" width="4" height="13" rx="1" fill="currentColor"/><rect x="17" y="3" width="4" height="17" rx="1" fill="currentColor"/></svg>
+        Категория
+      </div>
+      <h1 class="headline">Заголовок с <span class="accent">числом-акцентом</span></h1>
+    </div>
+    <div class="cols cols-2" style="gap:60px; align-items:center;">
+      <div>
+        <div class="stat-big accent">$NN</div>
+        <div class="stat-label" style="margin-top:4px;">короткая подпись под числом</div>
+        <div class="split-track" style="margin-top:22px;"><div class="split-fill" style="width:NN%;"></div></div>
+        <div class="split-legend">
+          <div class="split-legend-row"><span class="split-dot accent"></span>NN% — то, на что обращаем внимание</div>
+          <div class="split-legend-row"><span class="split-dot neutral"></span>NN% — остальное, по плану</div>
+        </div>
+      </div>
+      <div>
+        <div class="step-num" style="margin-bottom:14px;">Что это значит</div>
+        <ul class="plain">
+          <li><span class="mark">→</span><span class="txt">Первое следствие этой цифры</span></li>
+          <li><span class="mark">→</span><span class="txt">Второе следствие этой цифры</span></li>
+          <li><span class="mark">→</span><span class="txt">Как это решается</span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="bottom-row">
+    <span>Короткий практический вывод из этой цифры</span>
+    <span class="slide-no"><b class="num">NN</b> / N</span>
+  </div>
+</section>

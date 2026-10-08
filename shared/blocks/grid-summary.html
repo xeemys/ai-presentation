@@ -1,0 +1,82 @@
+<!--
+  БЛОК: grid-summary — обзорный слайд с N карточками-темами в едином гриде
+  + акцентная карточка-статистика, закрывающая сетку.
+  Когда использовать: «содержание» / «ключевые выводы» на 2–3 слайде,
+  чтобы анонсировать разделы презентации.
+  Что менять: kicker/headline, каждую карточку (иконка/step-num/desc),
+  число и подпись в последней акцентной карточке.
+  ВАЖНО про хаос: все карточки должны быть в ОДНОЙ grid-сетке с одинаковым
+  числом колонок (здесь cols-3 = 3×2 на 5+1 карточек). Никогда не делай
+  верхний ряд на cols-3, а нижний на cols-2 — колонки не совпадут по ширине,
+  и карточки перестанут выравниваться друг под другом. Если карточек не 5,
+  бери следующее число, кратное числу колонок (4→cols-2 (2×2), 6→cols-3
+  (2×3) без акцентной карточки, 7→cols-4 с одной пустой ячейкой закрытой
+  акцентной карточкой, и т.д.) — но всегда одна сетка на весь слайд.
+-->
+<section class="slide tint">
+  <div class="top-row"><div class="top-meta">Раздел презентации</div></div>
+  <div class="body-area">
+    <div style="margin-bottom:32px;">
+      <div class="kicker">
+        <svg class="i" viewBox="0 0 24 24" fill="none"><path d="M12 3.5 20.5 8 12 12.5 3.5 8 12 3.5Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="m3.5 12 8.5 4.5L20.5 12M3.5 16l8.5 4.5L20.5 16" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"/></svg>
+        Категория
+      </div>
+      <h1 class="headline">Заголовок с <span class="accent">акцентом</span></h1>
+    </div>
+    <div class="cols cols-3" style="gap:20px;">
+      <div class="card" style="display:flex; gap:12px; align-items:flex-start;">
+        <div style="width:30px;height:30px;border-radius:9px;background:var(--accent-soft);color:var(--accent);display:flex;align-items:center;justify-content:center;flex:none;">
+          <svg viewBox="0 0 24 24" fill="none" style="width:16px;height:16px;"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.6"/><path d="M12 7.5v9" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+        </div>
+        <div>
+          <div class="step-num">01 · Тема</div>
+          <p class="item-desc" style="max-width:100%; font-size:13.5px; margin-top:8px;">Короткое описание первой темы в 1–2 строки.</p>
+        </div>
+      </div>
+      <div class="card" style="display:flex; gap:12px; align-items:flex-start;">
+        <div style="width:30px;height:30px;border-radius:9px;background:var(--accent-soft);color:var(--accent);display:flex;align-items:center;justify-content:center;flex:none;">
+          <svg viewBox="0 0 24 24" fill="none" style="width:16px;height:16px;"><circle cx="9" cy="8.5" r="3" stroke="currentColor" stroke-width="1.6"/><circle cx="16" cy="9.5" r="2.4" stroke="currentColor" stroke-width="1.6"/></svg>
+        </div>
+        <div>
+          <div class="step-num">02 · Тема</div>
+          <p class="item-desc" style="max-width:100%; font-size:13.5px; margin-top:8px;">Короткое описание второй темы в 1–2 строки.</p>
+        </div>
+      </div>
+      <div class="card" style="display:flex; gap:12px; align-items:flex-start;">
+        <div style="width:30px;height:30px;border-radius:9px;background:var(--accent-soft);color:var(--accent);display:flex;align-items:center;justify-content:center;flex:none;">
+          <svg viewBox="0 0 24 24" fill="none" style="width:16px;height:16px;"><rect x="3.5" y="4.5" width="17" height="14" rx="2" stroke="currentColor" stroke-width="1.6"/></svg>
+        </div>
+        <div>
+          <div class="step-num">03 · Тема</div>
+          <p class="item-desc" style="max-width:100%; font-size:13.5px; margin-top:8px;">Короткое описание третьей темы в 1–2 строки.</p>
+        </div>
+      </div>
+      <div class="card" style="display:flex; gap:12px; align-items:flex-start;">
+        <div style="width:30px;height:30px;border-radius:9px;background:var(--accent-soft);color:var(--accent);display:flex;align-items:center;justify-content:center;flex:none;">
+          <svg viewBox="0 0 24 24" fill="none" style="width:16px;height:16px;"><path d="M4 4.5h16l-6 8v6.2l-4 2V12.5L4 4.5Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>
+        </div>
+        <div>
+          <div class="step-num">04 · Тема</div>
+          <p class="item-desc" style="max-width:100%; font-size:13.5px; margin-top:8px;">Короткое описание четвёртой темы в 1–2 строки.</p>
+        </div>
+      </div>
+      <div class="card" style="display:flex; gap:12px; align-items:flex-start;">
+        <div style="width:30px;height:30px;border-radius:9px;background:var(--accent-soft);color:var(--accent);display:flex;align-items:center;justify-content:center;flex:none;">
+          <svg viewBox="0 0 24 24" fill="none" style="width:16px;height:16px;"><rect x="4" y="13" width="3.5" height="7" rx="1" fill="currentColor"/><rect x="10.3" y="8" width="3.5" height="12" rx="1" fill="currentColor"/></svg>
+        </div>
+        <div>
+          <div class="step-num">05 · Тема</div>
+          <p class="item-desc" style="max-width:100%; font-size:13.5px; margin-top:8px;">Короткое описание пятой темы в 1–2 строки.</p>
+        </div>
+      </div>
+      <div class="card" style="background:var(--accent); border-color:var(--accent); display:flex; flex-direction:column; justify-content:center;">
+        <div class="stat-big" style="color:#fff; font-size:44px;">N</div>
+        <div style="font-size:13px; font-weight:700; color:#fff; opacity:.92; margin-top:8px; line-height:1.4;">короткая подпись, которая связывает все карточки в один вывод</div>
+      </div>
+    </div>
+  </div>
+  <div class="bottom-row">
+    <span>Вывод слайда — что объединяет все карточки выше</span>
+    <span class="slide-no"><b class="num">02</b> / N</span>
+  </div>
+</section>

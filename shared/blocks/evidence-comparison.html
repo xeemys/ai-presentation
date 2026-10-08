@@ -1,0 +1,47 @@
+<!--
+  БЛОК: evidence-comparison — скриншот-доказательство + текст + маленькая
+  диаграмма «Сейчас vs Рекомендуется» (два узла со стрелкой в каждой строке).
+  Когда использовать: находка — это не факт сам по себе, а сравнение
+  текущего и рекомендуемого состояния (2–3 шага в каждом).
+  Что менять: kicker/headline/lede, картинку, текст в узлах .flow-node
+  (можно добавить третий узел + .flow-arrow в любую строку), класс `done`
+  на узлах — у «Рекомендуется» он есть (акцентная заливка), у «Сейчас» нет.
+-->
+<section class="slide">
+  <div class="top-row"><div class="top-meta">Раздел презентации</div></div>
+  <div class="body-area">
+    <div class="cols cols-2" style="gap:70px; align-items:center;">
+      <div class="card"><img class="shot" src="assets/example.png" alt="" /></div>
+      <div>
+        <div class="kicker">
+          <svg class="i" viewBox="0 0 24 24" fill="none"><path d="M4 6.5A2.5 2.5 0 0 1 6.5 4h11A2.5 2.5 0 0 1 20 6.5v7A2.5 2.5 0 0 1 17.5 16H10l-4.5 4v-4H6.5A2.5 2.5 0 0 1 4 13.5v-7Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>
+          Категория находки
+        </div>
+        <h1 class="headline">Заголовок с <span class="accent">акцентом</span></h1>
+        <p class="lede" style="font-size:15px;">Одно предложение о том, что меняет сравнение ниже.</p>
+        <div style="margin-top:20px; display:flex; flex-direction:column; gap:12px; max-width:420px;">
+          <div>
+            <div class="stat-label" style="margin-bottom:8px;">Сейчас</div>
+            <div class="flow">
+              <div class="flow-node" style="padding:10px 14px;"><span style="font-size:13px; font-weight:700;">Шаг 1</span></div>
+              <div class="flow-arrow"><svg viewBox="0 0 24 24" fill="none"><path d="M4 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+              <div class="flow-node" style="padding:10px 14px;"><span style="font-size:13px; font-weight:700;">Шаг 2</span></div>
+            </div>
+          </div>
+          <div>
+            <div class="stat-label" style="margin-bottom:8px; color:var(--accent);">Рекомендуется</div>
+            <div class="flow">
+              <div class="flow-node done" style="padding:10px 14px;"><span style="font-size:13px; font-weight:700;">Шаг 1</span></div>
+              <div class="flow-arrow"><svg viewBox="0 0 24 24" fill="none"><path d="M4 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+              <div class="flow-node done" style="padding:10px 14px;"><span style="font-size:13px; font-weight:700;">Шаг 2 — новый</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="bottom-row">
+    <span>Короткий практический вывод из сравнения</span>
+    <span class="slide-no"><b class="num">NN</b> / N</span>
+  </div>
+</section>

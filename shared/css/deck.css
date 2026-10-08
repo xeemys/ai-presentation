@@ -1,0 +1,309 @@
+/*
+  Дизайн-система для презентаций. Светлая тема 16:9, Inter, синий акцент,
+  пилюли-киккеры с иконками и диаграммы (split-bar, flow, stepper) вместо
+  сплошного текста. Изначально выросла из клиентского референса
+  (shared/references/audit-deck-reference.html), но сознательно отличается
+  от него: без тёмных слайдов, с визуализациями и другим языком карточек.
+
+  Подключение в презентации:
+    <link rel="stylesheet" href="../../shared/css/deck.css">
+    <script src="../../shared/js/deck.js" defer></script>
+
+  Шрифт Inter — не с Google Fonts, а свои статичные файлы в
+  shared/fonts/inter/ (один файл на вес, полный набор глифов — static TTF
+  из официального релиза rsms/inter, не урезанный web-подсет). Три
+  независимых бага завязаны на источник/форму шрифта, поэтому шрифт
+  теперь полностью локальный, не переменный и не разбит на подмножества:
+  1) сеть — при экспорте в PDF headless-браузер не всегда успевал
+     догрузить шрифт с Google Fonts и откатывался на системный;
+  2) переменный шрифт (один файл на все веса) на экране показывается
+     верно, но при печати в PDF через Chromium/Skia PDF-бэкенд иногда
+     не встраивается и всё равно откатывается на системный шрифт —
+     поэтому именно статичные файлы (свой файл на каждый вес);
+  3) даже статичный шрифт, если он разбит на 2 файла с unicode-range
+     (latin/cyrillic — так его отдаёт @fontsource/inter) — на экране
+     работает верно, но при печати в PDF конкретно кириллица весом 400
+     иногда откатывается на системный шрифт (Chromium путается между
+     двумя @font-face одного веса с разным unicode-range именно в PDF-
+     бэкенде, хотя на экране матчинг корректный). Попытка смёржить
+     latin+cyrillic в один файл (fontTools.merge) решила это, но
+     обнажила следующую проблему:
+  4) @fontsource отдаёт latin-подмножество БЕЗ символов вроде ₸, →, ✓ —
+     их нет даже в полном latin-ext. А ровно такие маркеры (→/✓) —
+     принятый в этой системе способ оформлять списки (`ul.plain`,
+     см. shared/blocks/concept-checklist.html, stepper-roadmap.html).
+     Решение: не мёржить подсеты, а взять статичные TTF прямо из
+     официального релиза шрифта (github.com/rsms/inter/releases) — там
+     полный набор глифов на каждый вес (кириллица, валюты, стрелки,
+     галочки), сконвертировать в woff2 — и всё в одном файле на вес.
+
+  Разметка и все компоненты — см. shared/templates/slide-deck.html.
+*/
+
+@font-face{ font-family:'Inter'; font-style:normal; font-weight:400; font-display:swap; src:url('../fonts/inter/Inter-400.woff2') format('woff2'); }
+@font-face{ font-family:'Inter'; font-style:normal; font-weight:500; font-display:swap; src:url('../fonts/inter/Inter-500.woff2') format('woff2'); }
+@font-face{ font-family:'Inter'; font-style:normal; font-weight:600; font-display:swap; src:url('../fonts/inter/Inter-600.woff2') format('woff2'); }
+@font-face{ font-family:'Inter'; font-style:normal; font-weight:700; font-display:swap; src:url('../fonts/inter/Inter-700.woff2') format('woff2'); }
+@font-face{ font-family:'Inter'; font-style:normal; font-weight:800; font-display:swap; src:url('../fonts/inter/Inter-800.woff2') format('woff2'); }
+@font-face{ font-family:'Inter'; font-style:normal; font-weight:900; font-display:swap; src:url('../fonts/inter/Inter-900.woff2') format('woff2'); }
+
+:root{
+  --accent:#2563EB;
+  --accent-soft:rgba(37,99,235,.10);
+  --accent-line:rgba(37,99,235,.35);
+  --ink:#12131A;
+  --muted:#6B7280;
+  --line:rgba(18,19,26,.10);
+  --bg:#FFFFFF;
+  --bg-tint:#F3F6FD;
+  --surface:#FFFFFF;
+  --neutral-fill:#E9EDF3;
+  --shadow:0 1px 2px rgba(16,24,40,.04), 0 8px 24px -12px rgba(16,24,40,.10);
+}
+*{box-sizing:border-box; margin:0; padding:0;}
+html,body{height:100%;}
+body{
+  font-family:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;
+  background:#E7EAF0;
+  overflow:hidden;
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+}
+
+#stage{ position:fixed; inset:0; display:flex; align-items:center; justify-content:center; }
+#deck{
+  width:1280px; height:720px; position:relative; transform-origin:center center;
+  box-shadow:0 40px 120px -20px rgba(16,24,40,.35); border-radius:6px; overflow:hidden;
+}
+
+.slide{
+  position:absolute; inset:0; width:1280px; height:720px;
+  display:none; flex-direction:column; padding:64px 76px 48px; opacity:0;
+  background:var(--bg); color:var(--ink);
+}
+.slide.active{ display:flex; opacity:1; }
+.slide.tint{ background:var(--bg-tint); }
+
+.kicker{
+  display:inline-flex; align-items:center; gap:7px; align-self:flex-start;
+  padding:6px 14px 6px 10px; border-radius:100px; background:var(--accent-soft);
+  color:var(--accent); font-size:12px; font-weight:700; letter-spacing:.06em;
+  text-transform:uppercase; margin-bottom:16px;
+}
+.kicker svg{ width:14px; height:14px; flex:none; }
+
+h1.headline{ font-size:44px; font-weight:800; line-height:1.12; letter-spacing:-0.015em; color:var(--ink); }
+h1.headline.xl{ font-size:50px; }
+.accent{ color:var(--accent); }
+
+.lede{ font-size:16.5px; line-height:1.6; font-weight:400; max-width:620px; margin-top:16px; color:#4B4B54; }
+
+.muted{ color:var(--muted); }
+.num{ font-variant-numeric:tabular-nums; }
+
+.top-row{
+  display:flex; align-items:center; justify-content:flex-start;
+  padding-bottom:18px; margin-bottom:32px; border-bottom:1px solid var(--line);
+}
+.top-meta{ font-size:12px; font-weight:600; letter-spacing:.02em; color:var(--muted); }
+
+.body-area{ flex:1; min-height:0; display:flex; flex-direction:column; justify-content:center; }
+
+.bottom-row{
+  display:flex; align-items:center; justify-content:space-between;
+  padding-top:16px; margin-top:24px; border-top:1px solid var(--line);
+  font-size:12px; font-weight:600; color:var(--muted);
+}
+.bottom-row .slide-no{ font-variant-numeric:tabular-nums; letter-spacing:.04em; }
+.bottom-row .slide-no b{ color:var(--accent); }
+
+.cols{ display:grid; gap:48px; }
+.cols-2{ grid-template-columns:1fr 1fr; }
+.cols-3{ grid-template-columns:repeat(3,1fr); }
+.cols-4{ grid-template-columns:repeat(4,1fr); }
+
+.rule-v{ width:1px; align-self:stretch; background:var(--line); }
+
+.step-num{ font-size:13px; font-weight:800; color:var(--accent); letter-spacing:.02em; }
+.item-title{ font-size:16px; font-weight:700; margin-top:6px; color:var(--ink); }
+.item-desc{ font-size:13.5px; line-height:1.5; margin-top:6px; max-width:230px; color:var(--muted); }
+
+.stat-big{ font-size:60px; font-weight:800; line-height:1; letter-spacing:-0.02em; color:var(--ink); }
+.stat-label{ font-size:12px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; color:var(--muted); }
+
+.logo-badge{
+  width:56px; height:56px; border-radius:14px; background:#fff; border:1px solid var(--line);
+  display:flex; align-items:center; justify-content:center; padding:7px; flex:none;
+}
+.logo-badge img{ width:100%; height:100%; object-fit:contain; }
+
+table.clean{ width:100%; border-collapse:collapse; font-size:14px; }
+table.clean th{
+  text-align:left; font-size:11px; font-weight:700; letter-spacing:.08em; text-transform:uppercase;
+  padding:0 0 12px; border-bottom:1px solid var(--line); color:var(--muted);
+}
+table.clean td{ padding:16px 0; border-bottom:1px solid var(--line); vertical-align:middle; }
+table.clean tr:last-child td{ border-bottom:none; }
+table.clean td.r{ text-align:right; }
+
+.pill{
+  display:inline-flex; align-items:center; gap:6px; font-size:11.5px; font-weight:700;
+  letter-spacing:.04em; padding:6px 14px; border-radius:100px; background:#fff; border:1px solid var(--line);
+}
+
+ul.plain{ list-style:none; }
+ul.plain li{ display:flex; gap:12px; align-items:flex-start; }
+ul.plain li + li{ margin-top:14px; }
+ul.plain .mark{ color:var(--accent); font-weight:800; font-size:15px; line-height:1.5; }
+ul.plain .txt{ font-size:14.5px; line-height:1.55; color:#3D3D46; }
+ul.plain .txt b{ color:var(--ink); font-weight:700; }
+
+.card{ border-radius:16px; padding:18px; background:var(--surface); border:1px solid var(--line); }
+
+.flag{
+  display:inline-block; font-size:10.5px; font-weight:800; letter-spacing:.08em; text-transform:uppercase;
+  padding:4px 10px; border-radius:6px; background:var(--accent-soft); color:var(--accent);
+}
+
+.shot{ width:100%; display:block; max-height:420px; object-fit:contain; border-radius:8px; }
+
+.callout{ border-left:2px solid var(--accent); padding-left:18px; margin-top:22px; }
+.callout .step-num{ margin-bottom:6px; }
+
+/* ===== Диаграмма: часть от целого (split-bar) ===== */
+.split{ display:flex; align-items:center; gap:28px; }
+.split-track{
+  flex:1; height:16px; border-radius:100px; background:var(--neutral-fill); overflow:hidden;
+  display:flex;
+}
+.split-fill{ height:100%; background:var(--accent); border-radius:100px 0 0 100px; }
+.split-legend{ display:flex; flex-direction:column; gap:8px; margin-top:14px; }
+.split-legend-row{ display:flex; align-items:center; gap:10px; font-size:14px; color:#3D3D46; }
+.split-dot{ width:10px; height:10px; border-radius:3px; flex:none; }
+.split-dot.accent{ background:var(--accent); }
+.split-dot.neutral{ background:var(--neutral-fill); border:1px solid var(--line); }
+
+/* ===== Диаграмма: воронка/цепочка узлов (flow) ===== */
+.flow{ display:flex; align-items:stretch; gap:0; }
+.flow-node{
+  flex:1; border:1px solid var(--line); border-radius:16px; padding:20px;
+  background:#fff; position:relative;
+}
+.flow-node.done{ border-color:var(--accent-line); background:var(--accent-soft); }
+.flow-node .node-icon{
+  width:34px; height:34px; border-radius:10px; display:flex; align-items:center; justify-content:center;
+  background:var(--neutral-fill); color:var(--muted); margin-bottom:14px;
+}
+.flow-node.done .node-icon{ background:var(--accent); color:#fff; }
+.flow-node .node-icon svg{ width:18px; height:18px; }
+.flow-arrow{ width:32px; flex:none; display:flex; align-items:center; justify-content:center; color:#C7CBD4; align-self:center; margin-top:-14px; }
+.flow-arrow svg{ width:22px; height:22px; }
+
+/* ===== Диаграмма: степпер этапов (roadmap) ===== */
+.stepper{ position:relative; }
+.stepper-line{ position:absolute; top:17px; left:17px; right:17px; height:2px; background:var(--line); }
+.stepper-row{ display:grid; grid-template-columns:repeat(3,1fr); gap:40px; position:relative; }
+.stepper-dot{
+  width:34px; height:34px; border-radius:100px; background:#fff; border:2px solid var(--line);
+  display:flex; align-items:center; justify-content:center; font-size:13px; font-weight:800; color:var(--muted);
+  position:relative; z-index:1;
+}
+.stepper-dot.active{ background:var(--accent); border-color:var(--accent); color:#fff; }
+
+/* ===== Иконки (inline SVG, currentColor, 24x24 viewBox) ===== */
+.i{ display:inline-block; }
+
+/* ===== Navigation UI ===== */
+#nav-arrows{ position:fixed; inset:0; pointer-events:none; z-index:50; }
+.nav-btn{
+  position:absolute; top:50%; transform:translateY(-50%);
+  width:44px; height:44px; border-radius:50%;
+  background:rgba(255,255,255,.85); border:1px solid var(--line);
+  color:var(--ink); display:flex; align-items:center; justify-content:center;
+  cursor:pointer; pointer-events:auto; opacity:0; transition:opacity .2s ease, background .2s ease, color .2s ease;
+  backdrop-filter:blur(6px); font-size:18px; box-shadow:var(--shadow);
+}
+#stage:hover .nav-btn{ opacity:.7; }
+.nav-btn:hover{ opacity:1 !important; background:var(--accent); color:#fff; }
+#prev-btn{ left:22px; }
+#next-btn{ right:22px; }
+
+#dots{
+  position:fixed; bottom:16px; left:50%; transform:translateX(-50%);
+  display:flex; gap:7px; z-index:50; padding:8px 14px; border-radius:100px;
+  background:rgba(255,255,255,.85); border:1px solid var(--line); backdrop-filter:blur(6px);
+  opacity:0; transition:opacity .25s ease; box-shadow:var(--shadow);
+}
+#stage:hover #dots, #dots.show{ opacity:1; }
+#dots .d{ width:6px; height:6px; border-radius:50%; background:#C7CBD4; cursor:pointer; transition:.2s; }
+#dots .d.active{ background:var(--accent); width:18px; border-radius:4px; }
+
+#hud{
+  position:fixed; top:16px; right:20px; z-index:50;
+  display:flex; align-items:center; gap:10px;
+  font-family:'Inter',sans-serif; font-size:12px; font-weight:700; color:var(--ink);
+  opacity:0; transition:opacity .25s ease;
+}
+#stage:hover #hud{ opacity:.9; }
+#hud button{
+  background:rgba(255,255,255,.85); border:1px solid var(--line); color:var(--ink);
+  padding:6px 12px; border-radius:100px; cursor:pointer; font-size:11.5px; font-weight:700;
+  backdrop-filter:blur(6px); box-shadow:var(--shadow);
+}
+#hud button:hover{ background:var(--accent); color:#fff; }
+#hud .counter{ font-variant-numeric:tabular-nums; opacity:.7; padding:0 4px; }
+
+#progress{
+  position:fixed; top:0; left:0; height:2px; background:var(--accent); z-index:60;
+  transition:width .3s ease; width:0%;
+}
+
+/* ===== Тёмный акцентный слайд (обложка/закрывающий) =====
+   Точечное исключение из светлой системы — для обложки и последнего
+   слайда, по образцу бренд-кита Diskurs (shared/references/design-inspiration.md):
+   там тоже большинство слайдов светлые, а тёмный — только на «входе» и
+   «выходе» презентации. Без blur/backdrop-filter — сплошная заливка,
+   чтобы не ловить артефакты печати в PDF (см. правило про box-shadow). */
+.slide.dark{
+  background:
+    radial-gradient(120% 130% at 12% -10%, rgba(122,92,255,.30), transparent 55%),
+    linear-gradient(155deg, #0A1120 0%, #121C3E 48%, #1E2F7A 100%);
+  color:#fff;
+}
+.slide.dark .top-row,
+.slide.dark .bottom-row{ border-color:rgba(255,255,255,.14); color:rgba(255,255,255,.55); }
+.slide.dark .kicker{ background:rgba(255,255,255,.12); color:#fff; }
+.slide.dark h1.headline{ color:#fff; }
+.slide.dark .accent{ color:#8FA6FF; }
+.slide.dark .lede{ color:rgba(255,255,255,.72); }
+.slide.dark .muted{ color:rgba(255,255,255,.55); }
+.slide.dark .rule-v{ background:rgba(255,255,255,.16); }
+.slide.dark .item-title{ color:#fff; }
+.slide.dark .item-desc{ color:rgba(255,255,255,.6); }
+.slide.dark table.clean th{ color:rgba(255,255,255,.55); border-color:rgba(255,255,255,.16); }
+.slide.dark table.clean td{ border-color:rgba(255,255,255,.16); color:#fff; }
+.slide.dark table.clean td.accent{ color:#8FA6FF; }
+
+/* Заголовок-плакат для обложек/разделов — крупнее и плотнее обычного .xl,
+   приём из маркетинг-кита Diskurs (см. design-inspiration.md). */
+h1.headline.poster{ font-size:58px; font-weight:900; letter-spacing:-0.02em; line-height:1.04; }
+
+/* Карточка-стекло — приём из better-design/glassmorphic-dark (см.
+   design-inspiration.md): полупрозрачная заливка + светлая тонкая рамка,
+   БЕЗ backdrop-filter/blur (печать в PDF не гарантирует его поддержку). */
+.card.glass{ background:rgba(255,255,255,.08); border:1px solid rgba(255,255,255,.16); }
+.card.glass .stat-label{ color:rgba(255,255,255,.6); }
+.card.glass .stat-big{ color:#fff; }
+
+@media print{
+  @page{ size:13.333in 7.5in; margin:0; }
+  body{ overflow:visible; background:#fff; }
+  #stage{ position:static; display:block; }
+  #deck{ width:auto; height:auto; transform:none !important; box-shadow:none; border-radius:0; }
+  .slide{
+    display:flex !important; opacity:1 !important; position:relative;
+    width:13.333in; height:7.5in; padding:.66in .79in .5in;
+    page-break-after:always; break-after:page;
+  }
+  #nav-arrows, #dots, #hud, #progress{ display:none !important; }
+}

@@ -1,0 +1,64 @@
+<!--
+  БЛОК: case-metrics — один кейс/проект целиком на слайд: логотип + название
+  + ниша, 3 базовых показателя, блок «Что сделали», и рядом — крупная
+  акцентная карточка-результат (не мелкая подпись внизу — именно она
+  главная мысль слайда, ей и положена самая крупная цифра на слайде).
+  Когда использовать: портфолио кейсов, где на каждый проект — один
+  слайд с логотипом, цифрами и «закрытой кухней».
+  Что менять:
+  - .logo-badge img — логотип проекта (PNG/JPG любой формы, вписывается
+    в рамку без обрезки); если у логотипа свой яркий фон — можно задать
+    его и на самом .logo-badge (background:#...), чтобы не было белой
+    окантовки вокруг цветного лого
+  - kicker + headline — ниша и название
+  - lede — одна строка: чем занимается + с какого периода работаем
+  - 3 карточки cols-3 — только сухие факты (бюджет/цена/ROMI); если у
+    метрики есть оговорка (например ROMI ниже из-за LTV) — пиши её
+    сразу под значением мелким текстом в этой же карточке, НЕ звёздочкой
+    со сноской где-то ещё — оторванная сноска сбивает с толку
+  - .callout "Что сделали" — конкретное решение, не общая фраза
+  - акцентная карточка справа — ЕДИНСТВЕННОЕ число или два числа через
+    разделитель (как в Xan: −16% / +20%), крупно (44–56px), с коротким
+    пояснением под ним. Это тот результат, ради которого слайд открыли.
+  - bottom-row — короткий контекст в 3–6 слов, не сама цифра (она уже
+    крупно в акцентной карточке)
+-->
+<section class="slide">
+  <div class="top-row"><div class="top-meta">Кейс N из M · Категория</div></div>
+  <div class="body-area">
+    <div style="display:flex; align-items:center; gap:16px; margin-bottom:6px;">
+      <div class="logo-badge"><img src="assets/logo.png" alt="Название проекта" /></div>
+      <div>
+        <div class="kicker" style="margin-bottom:4px;">
+          <svg class="i" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.6"/><path d="M12 7.5v9M9 9.8c0-1.3 1.3-2.3 3-2.3s3 .9 3 2c0 2.6-6 1.4-6 4 0 1.1 1.3 2 3 2s3-.9 3-2" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+          Ниша проекта
+        </div>
+        <h1 class="headline" style="font-size:32px;">Название проекта</h1>
+      </div>
+    </div>
+    <p class="lede" style="font-size:14px; margin-top:0; margin-bottom:18px;">Чем занимается проект · работаем с [месяц год]</p>
+
+    <div class="cols cols-2" style="gap:32px; align-items:stretch;">
+      <div style="display:flex; flex-direction:column; gap:16px;">
+        <div class="cols cols-3" style="gap:12px;">
+          <div class="card" style="padding:14px;"><div class="stat-label">Бюджет</div><div class="stat-big" style="font-size:21px; margin-top:4px;">$0</div></div>
+          <div class="card" style="padding:14px;"><div class="stat-label">Цена за лид</div><div class="stat-big" style="font-size:21px; margin-top:4px;">$0</div></div>
+          <div class="card" style="padding:14px;"><div class="stat-label">ROMI</div><div class="stat-big" style="font-size:21px; margin-top:4px;">0%</div></div>
+        </div>
+        <div class="callout" style="margin-top:0;">
+          <div class="step-num">Что сделали</div>
+          <div class="item-desc" style="max-width:100%;">Конкретное решение, которое приняли именно для этого проекта, и почему.</div>
+        </div>
+      </div>
+      <div class="card" style="background:var(--accent); border-color:var(--accent); display:flex; flex-direction:column; justify-content:center; padding:28px;">
+        <div style="font-size:11.5px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; color:#fff; opacity:.75;">Результат</div>
+        <div class="stat-big" style="color:#fff; font-size:48px; margin-top:8px;">−N%</div>
+        <div style="font-size:13.5px; color:#fff; opacity:.92; margin-top:2px; max-width:220px;">короткое пояснение, к чему относится цифра</div>
+      </div>
+    </div>
+  </div>
+  <div class="bottom-row">
+    <span>Короткий контекст в несколько слов</span>
+    <span class="slide-no"><b class="num">NN</b> / N</span>
+  </div>
+</section>

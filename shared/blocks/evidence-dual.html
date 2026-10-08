@@ -1,0 +1,39 @@
+<!--
+  БЛОК: evidence-dual — два скриншота-доказательства рядом, у каждого своя
+  короткая подпись-вывод под картинкой.
+  Когда использовать: два связанных, но независимых факта из одного и того
+  же источника (например, два разных поля настройки на одном экране).
+  Что менять: kicker/headline/lede сверху, обе картинки (assets/...png),
+  подписи под каждой (step-num/item-title/item-desc), bottom-row.
+-->
+<section class="slide">
+  <div class="top-row"><div class="top-meta">Раздел презентации</div></div>
+  <div class="body-area">
+    <div style="margin-bottom:24px; max-width:760px;">
+      <div class="kicker">
+        <svg class="i" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.6"/><path d="M12 7.5v9" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+        Категория находки
+      </div>
+      <h1 class="headline">Заголовок с <span class="accent">акцентом</span></h1>
+      <p class="lede">Одно предложение, что объединяет два факта ниже.</p>
+    </div>
+    <div class="cols cols-2" style="gap:40px;">
+      <div>
+        <div class="card"><img class="shot" style="max-height:220px;" src="assets/example-1.png" alt="" /></div>
+        <div class="step-num" style="margin-top:14px;">01 · Название</div>
+        <div class="item-title" style="max-width:100%;">Короткий вывод из первого скриншота</div>
+        <div class="item-desc" style="max-width:100%;">Развёрнутое пояснение в 1–2 строки.</div>
+      </div>
+      <div>
+        <div class="card"><img class="shot" style="max-height:220px;" src="assets/example-2.png" alt="" /></div>
+        <div class="step-num" style="margin-top:14px;">02 · Название</div>
+        <div class="item-title" style="max-width:100%;">Короткий вывод из второго скриншота</div>
+        <div class="item-desc" style="max-width:100%;">Развёрнутое пояснение в 1–2 строки.</div>
+      </div>
+    </div>
+  </div>
+  <div class="bottom-row">
+    <span>Итоговый вывод, который объединяет оба факта — часто с цифрой</span>
+    <span class="slide-no"><b class="num">NN</b> / N</span>
+  </div>
+</section>

@@ -1,0 +1,44 @@
+<!--
+  БЛОК: flow-diagram — цепочка узлов на всю ширину, соединённых стрелками.
+  Когда использовать: воронка, процесс, последовательность этапов —
+  особенно когда часть узлов «уже есть», а часть «ещё нет».
+  Что менять: kicker/headline, число узлов (3–5, добавляй/убирай
+  .flow-node + .flow-arrow парами), класс `done` на узле (акцентная
+  заливка + иконка-галочка) vs обычный узел (серая иконка-пунктир —
+  статус читается и цветом, и формой иконки, не только цветом).
+-->
+<section class="slide tint">
+  <div class="top-row"><div class="top-meta">Раздел презентации</div></div>
+  <div class="body-area">
+    <div style="margin-bottom:34px;">
+      <div class="kicker">
+        <svg class="i" viewBox="0 0 24 24" fill="none"><path d="M4 4.5h16l-6 8v6.2l-4 2V12.5L4 4.5Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>
+        Категория
+      </div>
+      <h1 class="headline">Заголовок с <span class="accent">акцентом</span></h1>
+    </div>
+    <div class="flow">
+      <div class="flow-node done">
+        <div class="node-icon"><svg viewBox="0 0 24 24" fill="none"><path d="M5 12.5 10 17l9-10" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div class="item-title" style="margin-top:0;">Этап 1</div>
+        <div class="item-desc" style="max-width:100%; margin-top:6px;">Уже есть — короткое пояснение.</div>
+      </div>
+      <div class="flow-arrow"><svg viewBox="0 0 24 24" fill="none"><path d="M4 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+      <div class="flow-node">
+        <div class="node-icon"><svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="8" stroke="currentColor" stroke-width="1.6" stroke-dasharray="3 3"/></svg></div>
+        <div class="item-title" style="margin-top:0;">Этап 2</div>
+        <div class="item-desc" style="max-width:100%; margin-top:6px;">Не настроен — короткое пояснение.</div>
+      </div>
+      <div class="flow-arrow"><svg viewBox="0 0 24 24" fill="none"><path d="M4 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+      <div class="flow-node">
+        <div class="node-icon"><svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="8" stroke="currentColor" stroke-width="1.6" stroke-dasharray="3 3"/></svg></div>
+        <div class="item-title" style="margin-top:0;">Этап 3</div>
+        <div class="item-desc" style="max-width:100%; margin-top:6px;">Не настроен — короткое пояснение.</div>
+      </div>
+    </div>
+  </div>
+  <div class="bottom-row">
+    <span>Короткий вывод — почему важна именно эта последовательность</span>
+    <span class="slide-no"><b class="num">NN</b> / N</span>
+  </div>
+</section>

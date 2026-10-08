@@ -1,0 +1,39 @@
+<!--
+  БЛОК: image-gallery — несколько изображений в ряд, под каждым своя
+  короткая подпись-вывод.
+  Когда использовать: сравниваешь примеры (креативы, макеты, экраны),
+  а не разбираешь один скриншот подробно.
+  Что менять: kicker/headline сверху, картинки в верхнем .cols-2 (можно
+  cols-3 для трёх), подписи (step-num/item-desc) в нижнем ряду — их число
+  и порядок колонок должны совпадать с числом картинок.
+-->
+<section class="slide">
+  <div class="top-row"><div class="top-meta">Раздел презентации</div></div>
+  <div class="body-area">
+    <div style="margin-bottom:22px; max-width:760px;">
+      <div class="kicker">
+        <svg class="i" viewBox="0 0 24 24" fill="none"><rect x="3.5" y="4.5" width="17" height="14" rx="2" stroke="currentColor" stroke-width="1.6"/><circle cx="9" cy="10" r="1.6" stroke="currentColor" stroke-width="1.6"/><path d="M4.5 16.5 9.5 12l3 3 3.5-4 4.5 5.5" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"/></svg>
+        Категория
+      </div>
+      <h1 class="headline">Заголовок с <span class="accent">акцентом</span></h1>
+    </div>
+    <div class="cols cols-2" style="gap:40px;">
+      <div class="card"><img class="shot" style="max-height:220px;" src="assets/example-1.png" alt="" /></div>
+      <div class="card"><img class="shot" style="max-height:220px;" src="assets/example-2.png" alt="" /></div>
+    </div>
+    <div class="cols cols-2" style="gap:40px; margin-top:16px;">
+      <div>
+        <div class="step-num">01 · Короткая подпись</div>
+        <div class="item-desc" style="max-width:100%; margin-top:6px;">Вывод по первому изображению в 1–2 строки.</div>
+      </div>
+      <div>
+        <div class="step-num">02 · Короткая подпись</div>
+        <div class="item-desc" style="max-width:100%; margin-top:6px;">Вывод по второму изображению в 1–2 строки.</div>
+      </div>
+    </div>
+  </div>
+  <div class="bottom-row">
+    <span>Итоговый вывод из сравнения примеров</span>
+    <span class="slide-no"><b class="num">NN</b> / N</span>
+  </div>
+</section>

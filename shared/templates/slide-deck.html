@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8" />
+<title>Название презентации</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link rel="stylesheet" href="../../shared/css/deck.css" />
+</head>
+<body>
+
+<div id="progress"></div>
+
+<div id="stage">
+  <div id="deck">
+
+    <!-- 01 — ТИТУЛЬНЫЙ СЛАЙД -->
+    <section class="slide tint active">
+      <div class="top-row"><div class="top-meta">Название проекта · Тема презентации</div></div>
+      <div class="body-area">
+        <div class="kicker">
+          <svg class="i" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.6"/><path d="M12 7v10M8.5 9.5c0-1.4 1.5-2.5 3.5-2.5s3.5 1 3.5 2.2c0 3-7 1.6-7 4.6 0 1.3 1.6 2.2 3.5 2.2s3.5-1 3.5-2.3" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+          Подзаголовок-категория
+        </div>
+        <h1 class="headline xl">Главный заголовок —<br>с акцентом на <span class="accent">ключевой мысли</span></h1>
+        <p class="lede">Короткое пояснение того, о чём презентация и зачем она нужна читателю.</p>
+      </div>
+      <div class="bottom-row" style="justify-content:flex-end;">
+        <span class="slide-no"><b class="num">01</b> / 03</span>
+      </div>
+    </section>
+
+    <!-- 02 — СВЕТЛЫЙ СЛАЙД С ДОКАЗАТЕЛЬСТВОМ (СКРИНШОТ) -->
+    <section class="slide">
+      <div class="top-row"><div class="top-meta">Раздел презентации</div></div>
+      <div class="body-area">
+        <div class="cols cols-2" style="gap:70px; align-items:center;">
+          <div>
+            <div class="kicker">
+              <svg class="i" viewBox="0 0 24 24" fill="none"><circle cx="9" cy="9" r="6.5" stroke="currentColor" stroke-width="1.6"/><path d="M13.8 13.8 19 19" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+              Категория находки
+            </div>
+            <h1 class="headline">Заголовок с <span class="accent">акцентом</span></h1>
+            <p class="lede">Развёрнутое описание находки или тезиса.</p>
+            <div class="callout">
+              <div class="step-num">Рекомендация</div>
+              <div class="item-desc" style="max-width:100%;">Что стоит сделать дальше.</div>
+            </div>
+          </div>
+          <div class="card">
+            <img class="shot" src="assets/example.png" alt="" />
+          </div>
+        </div>
+      </div>
+      <div class="bottom-row">
+        <span>Короткий вывод-подпись, который остаётся в памяти</span>
+        <span class="slide-no"><b class="num">02</b> / 03</span>
+      </div>
+    </section>
+
+    <!-- 03 — ПРИМЕР ДИАГРАММЫ: ЧАСТЬ ОТ ЦЕЛОГО -->
+    <section class="slide tint">
+      <div class="top-row"><div class="top-meta">Раздел презентации</div></div>
+      <div class="body-area">
+        <div style="margin-bottom:32px;">
+          <div class="kicker">
+            <svg class="i" viewBox="0 0 24 24" fill="none"><rect x="3" y="12" width="4" height="8" rx="1" fill="currentColor"/><rect x="10" y="7" width="4" height="13" rx="1" fill="currentColor"/><rect x="17" y="3" width="4" height="17" rx="1" fill="currentColor"/></svg>
+            Цифра
+          </div>
+          <h1 class="headline">Заголовок с <span class="accent">числом</span></h1>
+        </div>
+        <div class="split">
+          <div class="stat-big accent">12%</div>
+          <div class="split-track"><div class="split-fill" style="width:12%;"></div></div>
+        </div>
+        <div class="split-legend">
+          <div class="split-legend-row"><span class="split-dot accent"></span>12% — то, на что обращаем внимание</div>
+          <div class="split-legend-row"><span class="split-dot neutral"></span>88% — остальное</div>
+        </div>
+      </div>
+      <div class="bottom-row">
+        <span>Вывод из цифры — что это значит для решения</span>
+        <span class="slide-no"><b class="num">03</b> / 03</span>
+      </div>
+    </section>
+
+  </div>
+</div>
+
+<div id="nav-arrows">
+  <div class="nav-btn" id="prev-btn">‹</div>
+  <div class="nav-btn" id="next-btn">›</div>
+</div>
+<div id="dots"></div>
+<div id="hud">
+  <span class="counter"><span id="cur">1</span> / <span id="total">1</span></span>
+  <button id="fs-btn">⛶ Экран</button>
+  <button id="print-btn">🖨 PDF</button>
+</div>
+
+<script src="../../shared/js/deck.js" defer></script>
+</body>
+</html>

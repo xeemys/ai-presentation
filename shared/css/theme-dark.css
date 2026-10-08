@@ -1,0 +1,42 @@
+/*
+  Тёмная тема для презентаций на shared/css/deck.css — не отдельная
+  дизайн-система, а набор переопределений тех же CSS-переменных и
+  нескольких захардкоженных цветов, которые deck.css не выражает через
+  переменные (появились как точечное исключение — .slide.dark — для
+  обложки/закрытия в html/case-studies-meta-ads, см.
+  shared/references/design-inspiration.md). Когда презентация целиком
+  тёмная (бренд клиента тёмный), проще подключить этот файл ПОСЛЕ
+  deck.css и переопределить --accent/--accent-soft/--accent-line под
+  бренд, чем вешать класс .dark на каждый слайд.
+
+  Подключение (после deck.css):
+    <link rel="stylesheet" href="../../shared/css/deck.css">
+    <link rel="stylesheet" href="../../shared/css/theme-dark.css">
+  и там же, в отдельном блоке стилей презентации, переопределить в :root
+  переменные --accent, --accent-soft (rgba .15), --accent-line (rgba .4).
+  Не писать в этом комментарии закрывающий тег style: при встраивании
+  в HTML он оборвал бы стили посреди файла.
+
+  Без blur/backdrop-filter — только сплошные заливки и rgba-прозрачность,
+  чтобы не ловить артефакты печати в PDF (тот же принцип, что и в
+  основной системе, см. комментарий про box-shadow в deck.css).
+*/
+:root{
+  --accent:#F2583A;
+  --accent-soft:rgba(242,88,58,.15);
+  --accent-line:rgba(242,88,58,.4);
+  --ink:#F5F5F3;
+  --muted:#9B9B97;
+  --line:rgba(255,255,255,.14);
+  --bg:#202020;
+  --bg-tint:#272420;
+  --surface:#2A2A28;
+  --neutral-fill:rgba(255,255,255,.08);
+}
+body{ background:#141414; }
+.lede{ color:rgba(245,245,243,.72); }
+ul.plain .txt{ color:rgba(245,245,243,.75); }
+.pill{ background:var(--surface); color:var(--ink); border-color:var(--line); }
+.flow-node{ background:var(--surface); }
+.stepper-dot{ background:var(--surface); }
+#dots .d{ background:rgba(255,255,255,.25); }
